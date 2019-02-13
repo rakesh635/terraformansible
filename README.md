@@ -21,7 +21,7 @@ Ansible installed (used ansible 2.7.7), both in same machine.
 ## Files :
 
 First we should have to provision an infrastructure for jenkins. Here we use terraform for that. We a need to start with a terraform file.
-
+```
 jenkins.tf :
 
 provider "aws" {
@@ -40,7 +40,7 @@ resource "aws_instance" "jenkin" {
     command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -e 'ansible_python_interpreter=/usr/bin/python3' --private-key ./deployer.pem -i '${aws_instance.jenkin.public_ip},' master.yml"
   }
 }
-
+```
 
 I have use aws provider to launch an ubuntu instance. For accessing the variables (accesskey, secretkey), create variable.tf and terraform.tfvars files. As mentioned, used linux image and mentioned its flavour, key, tagname. I already have a key, rakeshkey4. If you want them to create them in fly, you can use  ‘ resource "aws_key_pair" ‘. Also be ready with pem file for your key.
 
