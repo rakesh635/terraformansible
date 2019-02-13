@@ -1,25 +1,25 @@
-# terraformansible
+
 Use Terraform and Ansible to provision an ec2 instance and launch jenkins service.
 
 # Ansible with Terraform :
-------------------------
+
 In devops world, we frequently come across terraform and ansible. But will be confused where to use these and how to use it combined. Here we can learn how to combine these two to configure the ec2 instance, created by terraform. 
 
 # Ansible vs Terraform :
-----------------------
+
 In general term we can mention this difference as configuration management vs orchestration. Terraform is for provisioning your infrastructure and Ansible is for configuring the infrastructure. Both can do other’s task a bit, but they are in market to do their primary task.
 
 This is a document, where we use them to do their primary task and combine them to launch a jenkins service.
 
 # Launch Jenkins in EC2 :
------------------------
+
 ## Prerequisite :
---------------
+
 Terraform installed (used Terraform v0.11.10)
 Ansible installed (used ansible 2.7.7), both in same machine.
 
 ## Files :
---------------
+
 First we should have to provision an infrastructure for jenkins. Here we use terraform for that. We a need to start with a terraform file.
 
 jenkins.tf :
@@ -47,7 +47,7 @@ I have use aws provider to launch an ubuntu instance. For accessing the variable
 Provisioners are used to execute scripts on a local or remote machine as part of resource creation or destruction. Provisioners can be used to bootstrap a resource, cleanup before destroy, run configuration management, etc. I used to execute local script for configuration management.
 
 So your terraform folder should contain, <somename>.tf, variable.tf, terraform.tfvars and pem file. Along with this, we need to have a ansible playbook to configure jenkins (master.yml).
-
+```
 master.yml :
 
 - hosts: all
@@ -80,11 +80,11 @@ master.yml :
 
     - name: ensure jenkins is running
       service: name=jenkins state=started
-
+```
 This is very much straight forward approach to launch jenkins in ubuntu 16.04. 
 
 ## Steps :
-------
+
 Once your files are ready, start with terraform init statement. 
 Next you can apply them using terraform apply
 
